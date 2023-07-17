@@ -16,5 +16,23 @@ def upload(request):
     if request.method=='POST':
         return render(request,'upload.html')
     else:
-        return render(request,'upload.html')      
-        
+        return render(request,'upload.html')  
+    
+def welcome(request):
+    if request.method=='POST':
+        return render(request,'welcome.html')
+    else:
+        return render(request,'welcome.html')     
+    
+def welcome1(request):
+    if request.method=='POST':
+        return render(request,'welcome1.html')
+    else:
+        return render(request,'welcome1.html')  
+    
+def choice(request):
+    if request.method=='POST':
+        return render(request,'choice.html')
+    else:
+        return render(request,'choice.html')             
+      
