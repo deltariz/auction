@@ -11,4 +11,10 @@ def login(request):
         return render(request,'login.html')
     else:
         return render(request,'login.html')    
+    
+def upload(request):
+    if request.method=='POST':
+        return render(request,'upload.html')
+    else:
+        return render(request,'upload.html')      
         
