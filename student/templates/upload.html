@@ -8,13 +8,26 @@
  <title>Uploads</title>
  <link rel="stylesheet" type="text/css" href="{% static 'css/upload.css' %}"/>
  <script src="https://kit.fontawesome.com/2b070e02a1.js" crossorigin="anonymous"></script>
+<style>
+p{
+  font-size: 25px;
+}
+
+n{
+  font-size: 25px;
+}
+
+
+</style>
 </head>    
 <body>
 <form action=#' method='POST'>
-Name of item:<input type='text' name='item name'><br>
-Price of item:<input type='text' name='price of item'><br>    
+<n>Name of item:<input type='text' name='item name'></n><br>
+<p>Price of item:<input type='text' name='price of item'></p><br>    
     <div class="Neon Neon-theme-dragdropbox">
         <input style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" name="files[]" id="filer_input2" multiple="multiple" type="file">
+        <input type="file" accept="image/*" onchange="loadFile(event)">
+        <p><img id="output" width="200"/></p>
         <div class="Neon-input-dragDrop">
           <div class="Neon-input-inner">
             <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
@@ -23,9 +36,15 @@ Price of item:<input type='text' name='price of item'><br>
             </div><a class="Neon-input-choose-btn blue">Browse Files</a>
           </div>
         </div>
-      </div>    
+      </div>
+      <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('output');
+            image.src=URL.createObjectURL(event.target.files[0]);
+        };
+      </script>    
 
-<p>Click on the "Choose File" button to upload a file:</p>
+<p>Click on the "Choose File" button to upload a picture of your item:</p>
 
 <form action="/action_page.php">
   <input type="file" id="myFile" name="filename">
