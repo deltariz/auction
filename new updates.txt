@@ -1,0 +1,107 @@
+IN SETTINGS:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'PORT':'3306',
+        'HOST':'localhost',
+        'USER':'root',
+        'PASSWORD':'0027',
+        'NAME': 'pro',
+    }
+}
+
+ALLOWED_HOSTS = []
+ this is at the endddd after static in settings
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
+
+
+
+
+IN MODELS(will be in the app folder(auction)):
+from django.db import models
+
+# Create your models here.
+class register(models.Model):
+    name=models.CharField(max_length=50)
+    roll_no=models.CharField(max_length=20)
+    register_img=models.ImageField(upload_to='images/')
+
+
+
+
+
+
+IN VIEWS (will be in the app folder(auction)):
+from django.shortcuts import render
+from django.shortcuts import redirect
+import csv
+from register import forms
+from django.shortcuts import HttpResponse
+from register import models
+
+# Create your views here.
+
+def first(request):
+    if request.method=='POST':
+        '''form=forms.RegisterForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form=forms.RegisterForm()
+    return render(request,'home.html',{'form':form})'''
+        data=request.POST
+        data1=request.FILES
+        name=data['name']
+        rollno=data['rollno']
+        pic=data1['picture']
+        data=models.register(name=name,roll_no=rollno,register_img=pic)
+        data.save()
+        return redirect('success')
+    return render(request,'home.html')
+def success(request):
+    return HttpResponse('Successfully Uploaded')
+
+
+def display_image(request):
+        registered=models.register.objects.all()
+        return render(request,'display_data.html',{'register_data':registered})
+
+
+
+
+
+TEMPLATES:
+home page
+{% load static %}
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/test.css' %}"/>
+</head>
+<body>
+<form action='#' method='post'enctype='multipart/form-data'>
+{%csrf_token%}
+Name:::<input type="text" name='name'>
+Roll no<input type="number" name='rollno'>
+Upload Picture<input type="file" name='picture' id='picture'>
+<button>Submit</button>
+</form>
+</body>
+</html>
+
+display_data
+<html lang='en'>
+<head>
+<title>Images</title>
+</head>
+<body>
+{%for register in register_data %}
+{{register.name}}
+{{register.roll_no}}
+<img src="{{register.register_img.url}}"/>
+{% endfor %}
+</body>
+</html>
+
